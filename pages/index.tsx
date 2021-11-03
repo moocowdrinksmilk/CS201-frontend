@@ -1,6 +1,8 @@
 import axios from 'axios'
 import type { NextPage } from 'next'
 import { useState } from 'react'
+// @ts-ignore
+import GoogleMapReact from 'google-map-react';
 
 const Home: NextPage = () => {
 
@@ -35,6 +37,10 @@ const Home: NextPage = () => {
                     Heap Sort
                 </button>
             </div> 
+
+            <div className="flex flex-col items-center gap-10">
+
+            </div>
         </div>
     )
 }
