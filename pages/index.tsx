@@ -3,8 +3,9 @@ import type { NextPage } from 'next'
 import { useState } from 'react'
 // @ts-ignore
 import GoogleMapReact from 'google-map-react';
+import {FaMapMarkerAlt} from 'react-icons/fa'
 
-const AnyReactComponent = ({ text }: any) => <div className="bg-indigo-500 text-5xl">{text}</div>;
+const AnyReactComponent = ({ text }: any) => <FaMapMarkerAlt size={30} color="red" />;
 
 const Home: NextPage = () => {
 
@@ -15,17 +16,19 @@ const Home: NextPage = () => {
 
     const defaultProps = {
         center: {
-          lat: 10.99835602,
-          lng: 77.01502627
+          lat: 40.0175444,
+          lng: -105.2833481
         },
         zoom: 11
       };
     
 
     const sortDestinations = async () => {
-        const res = await axios.get(`http://localhost:8080/${typeOfSorts[sort]}/merge-sort?originLat=40.0175444&originLong=-105.2833481&maxDist=500`)
-
-    }
+        const {data} = await axios.get(`http://localhost:8080/filter-sort/${typeOfSorts[sort]}?originLat=40.0175444&originLong=-105.2833481&maxDist=500`)
+        console.log(data);
+        
+        setData(data.destinations)
+    } 
     return (
         <div>
             <h1 className="flex flex-row justify-center text-8xl w-full text-center">
@@ -37,7 +40,7 @@ const Home: NextPage = () => {
                     Quick Sort
                 </button>
 
-                <button className="bg-yellow-300 hover:bg-yellow-200 hover:shadow-md px-4 py-2 rounded-md">
+                <button className="bg-yellow-300 hover:bg-yellow-200 hover:shadow-md px-4 py-2 rounded-md" onClick={() => {setSort(1); sortDestinations()}}>
                     Merge Sort
                 </button>
 
@@ -53,11 +56,18 @@ const Home: NextPage = () => {
                         defaultCenter={defaultProps.center}
                         defaultZoom={defaultProps.zoom}
                     >
-                        <AnyReactComponent
-                            lat={10.99835602}
-                            lng={77.01502627}
-                            text="My Marker"
-                        />
+                        {
+                            data && data.map((item, index) => {
+                                console.log(item.latitude);
+                                
+                                return (
+                                    <AnyReactComponent
+                                    key={index}
+                                     lat={item.latitude} 
+                                     lng={item.longitude} />
+                                )
+                            })
+                        }
                     </GoogleMapReact>
                 </div>
             </div>
