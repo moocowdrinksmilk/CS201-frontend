@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 // @ts-ignore
 import GoogleMapReact from 'google-map-react';
 import { FaMapMarkerAlt } from 'react-icons/fa'
-import { Spin, Timeline } from 'antd';
+import { Spin, Timeline, Popover } from 'antd';
+import TimeItem from '../component/TimeItem';
 
 const AnyReactComponent = ({ text }: any) => <FaMapMarkerAlt size={30} color="red" />;
 
@@ -119,17 +120,10 @@ const Home: NextPage = () => {
                 <Timeline
                 mode="alternate">
                         {
-                            routeData && routeData.map((item, index) => {
+                            routeData && routeData.map((item:any, index) => {
                                 return (
                                     <Timeline.Item>
-                                        <div className="flex flex-col items-start gap-1 w-64">
-                                            <span>
-                                                {item.name}
-                                            </span>
-                                            <span className="text-gray-500">
-                                                {item.address}
-                                            </span>
-                                        </div>
+                                        <TimeItem name={item.name} distance={item.distance} address={item.address} num={item.review_count} stars={item.stars} />
                                     </Timeline.Item>
                                 )
                             })
