@@ -74,7 +74,7 @@ const Home: NextPage = () => {
             </h1>
 
             <div className="w-full flex flex-row justify-center gap-10 text-xl">
-                <button className="bg-yellow-300 hover:bg-yellow-200 hover:shadow-md px-4 py-2 rounded-md">
+                <button className="bg-yellow-300 hover:bg-yellow-200 hover:shadow-md px-4 py-2 rounded-md" onClick={() => { setSort(0); sortDestinations() }}>
                     Quick Sort
                 </button>
 
@@ -82,7 +82,7 @@ const Home: NextPage = () => {
                     Merge Sort
                 </button>
 
-                <button className="bg-yellow-300 hover:bg-yellow-200 hover:shadow-md px-4 py-2 rounded-md">
+                <button className="bg-yellow-300 hover:bg-yellow-200 hover:shadow-md px-4 py-2 rounded-md" onClick={() => { setSort(2); sortDestinations() }}>
                     Heap Sort
                 </button>
             </div>
@@ -130,7 +130,9 @@ const Home: NextPage = () => {
                                         num={item.review_count}
                                         stars={item.stars}
                                         city={item.city}
-                                        state={item.state} />
+                                        state={item.state}
+                                        lat={item.latitude}
+                                        lng={item.longitude} />
                                 </Timeline.Item>
                             )
                         })

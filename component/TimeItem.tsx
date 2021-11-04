@@ -8,6 +8,8 @@ interface props {
     address: string
     city: string
     state: string
+    lat: number
+    lng: number
 }
 
 const TimeItem = (props: props) => {
@@ -20,7 +22,7 @@ const TimeItem = (props: props) => {
             <div>
                 Distance: {props.distance}m
             </div>
-            <a target="_blank" href={`https://www.google.com/maps/search/?api=1&query=47.5951518%2C-122.3316393&query_place_id=ChIJKxjxuaNqkFQR3CK6O1HNNqY`} rel="noopener noreferrer"className="bg-blue-500 hover:bg-blue-700 text-center text-white hover:text-white px-4 py-2 rounded-md">
+            <a target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${props.lat}%2C${props.lng}`} rel="noopener noreferrer"className="bg-blue-500 hover:bg-blue-700 text-center text-white hover:text-white px-4 py-2 rounded-md">
                 Directions
             </a>
         </div>
