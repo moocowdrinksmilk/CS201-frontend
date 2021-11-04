@@ -43,7 +43,7 @@ const Home: NextPage = () => {
     //     })
     // }
 
-    const getRoute = async (plat, plng ) => {
+    const getRoute = async (plat, plng) => {
         const { data } = await axios.get(`http://localhost:8080/filter-sort/budget/route?originLat=${plat}&originLong=${plng}&maxDist=500&budget=100`)
         setRouteData(data)
     }
@@ -118,16 +118,23 @@ const Home: NextPage = () => {
                 </div>
 
                 <Timeline
-                mode="alternate">
-                        {
-                            routeData && routeData.map((item:any, index) => {
-                                return (
-                                    <Timeline.Item>
-                                        <TimeItem name={item.name} distance={item.distance} address={item.address} num={item.review_count} stars={item.stars} />
-                                    </Timeline.Item>
-                                )
-                            })
-                        }
+                    mode="left">
+                    {
+                        routeData && routeData.map((item: any, index) => {
+                            return (
+                                <Timeline.Item>
+                                    <TimeItem
+                                        name={item.name}
+                                        distance={item.distance}
+                                        address={item.address}
+                                        num={item.review_count}
+                                        stars={item.stars}
+                                        city={item.city}
+                                        state={item.state} />
+                                </Timeline.Item>
+                            )
+                        })
+                    }
                 </Timeline>
             </div>
         </div>

@@ -6,28 +6,39 @@ interface props {
     distance: number
     name: string
     address: string
+    city: string
+    state: string
 }
 
 const TimeItem = (props: props) => {
     const content = (
-        <div>
+        <div className="flex flex-col gap-1">
             <div>
                 {props.num} reviews
             </div>
             <Rate allowHalf defaultValue={props.stars} disabled />
             <div>
-                Distance: {props.distance}miles
+                Distance: {props.distance}m
             </div>
+            <a target="_blank" href={`https://www.google.com/maps/search/?api=1&query=47.5951518%2C-122.3316393&query_place_id=ChIJKxjxuaNqkFQR3CK6O1HNNqY`} rel="noopener noreferrer"className="bg-blue-500 hover:bg-blue-700 text-center text-white hover:text-white px-4 py-2 rounded-md">
+                Directions
+            </a>
         </div>
     )
     return (
         <Popover content={content} title={"Details"}>
-            <div className="flex flex-col items-start gap-1 w-64 cursor-pointer">
+            <div className="flex flex-col items-start gap-1 whitespace-nowrap cursor-pointer text-left">
                 <span>
                     {props.name}
                 </span>
                 <span className="text-gray-500">
                     {props.address}
+                </span>
+                <span className="text-gray-500">
+                    {props.city}
+                </span>
+                <span className="text-gray-500">
+                    {props.state}
                 </span>
             </div>
         </Popover>
