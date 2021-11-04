@@ -9,8 +9,11 @@ const AnyReactComponent = ({ text }: any) => <FaMapMarkerAlt size={30} color="re
 
 const Home: NextPage = () => {
 
-    const [sort, setSort] = useState(0)
+    const [sort, setSort] = useState(1)
     const [data, setData] = useState([])
+    const  [isLoading, setIsLoading] = useState(false)
+    const [lat, setLat] = useState(40.0175444)
+    const [lng, setLng] = useState(-105.2833481)
 
     const typeOfSorts = ['quick-sort', 'merge-sort', 'heap-sort']
 
@@ -24,11 +27,18 @@ const Home: NextPage = () => {
     
 
     const sortDestinations = async () => {
-        const {data} = await axios.get(`http://localhost:8080/filter-sort/${typeOfSorts[sort]}?originLat=40.0175444&originLong=-105.2833481&maxDist=500`)
-        console.log(data);
-        
+        const {data} = await axios.get(`http://localhost:8080/filter-sort/${typeOfSorts[sort]}?originLat=${lat}&originLong=${lng}&maxDist=500`)
         setData(data.destinations)
-    } 
+    }
+
+    const recoordinate = async (obj: any) => {
+        console.log(obj);
+        setLat(obj.lat)
+        setLng(obj.lng)
+        const {data} = await axios.get(`http://localhost:8080/filter-sort/${typeOfSorts[sort]}?originLat=${lat}&originLong=${lng}&maxDist=500`)        
+        setData(data.destinations)
+    }
+
     return (
         <div>
             <h1 className="flex flex-row justify-center text-8xl w-full text-center">
@@ -55,11 +65,10 @@ const Home: NextPage = () => {
                         bootstrapURLKeys={{ key: "" }}
                         defaultCenter={defaultProps.center}
                         defaultZoom={defaultProps.zoom}
+                        onClick={recoordinate}
                     >
                         {
-                            data && data.map((item, index) => {
-                                console.log(item.latitude);
-                                
+                            data && data.map((item, index) => {                                
                                 return (
                                     <AnyReactComponent
                                     key={index}
